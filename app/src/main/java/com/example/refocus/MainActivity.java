@@ -1,7 +1,9 @@
 package com.example.refocus;
 
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,30 +13,31 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.w3c.dom.Element;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.jar.Pack200.Packer.ERROR;
-
 public class MainActivity extends AppCompatActivity {
-
-    //public static final Integer[] images = { R.drawable.one, R.drawable.two, R.drawable.three };
 
     public final static String GOOGLE_URL = "https://play.google.com/store/apps/details?id=";
     public static final String ERROR = "error";
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     private final String TAG = MainActivity.class.getSimpleName();
     private PackageManager pm;
+    //private ActivityUtil mActivityUtil;
+
+    ArrayList apps = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +58,19 @@ public class MainActivity extends AppCompatActivity {
         PackageManager pm = getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         Iterator<ApplicationInfo> iterator = packages.iterator();
-        ArrayList apps = new ArrayList();
-        int imageId = 1;
         int i = 0;
         while (iterator.hasNext()) {
             ApplicationInfo packageInfo = iterator.next();
             String app_name = (String) pm.getApplicationLabel(packageInfo);
             String query_url = GOOGLE_URL + packageInfo.packageName;
+            Drawable icon = pm.getApplicationIcon(packageInfo);
             Log.i(TAG, query_url);
-            String category = "games";
-            /*try {
-                category = getAppCategory(query_url);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-            App app = new App(packageInfo, app_name, category, imageId);
+            String category = "none";
+            Log.e("CATEGORY", category);
+            App app = new App();
+            app.setName(app_name);
+            app.setCategory(category);
+            app.setImage(icon);
             apps.add(i, app);
         }
 
@@ -77,6 +78,19 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(this, apps);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+                Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
+                App app2 = (App) apps.get(position);
+                String title = app2.getName();
+                String category = app2.getCategory();
+                myIntent.putExtra("title", title);
+                myIntent.putExtra("category", category);
+                startActivityForResult(myIntent, 0);
+            }
+        });
 
     }
 
@@ -102,7 +116,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   /* private String getAppCategory(String query_url) throws IOException {
 
-    }*/
 }

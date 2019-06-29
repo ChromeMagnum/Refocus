@@ -2,6 +2,7 @@ package com.example.refocus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class MyAdapter extends ArrayAdapter<App> {
     private class ViewHolder {
         TextView txtName;
         TextView txtCategory;
-        ImageView imageView;
+        public ImageView icon;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -49,6 +50,7 @@ public class MyAdapter extends ArrayAdapter<App> {
             convertView = inflater.inflate(R.layout.list_item, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.title);
             viewHolder.txtCategory = (TextView) convertView.findViewById(R.id.subtitle);
+            viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
 
             result=convertView;
 
@@ -61,9 +63,10 @@ public class MyAdapter extends ArrayAdapter<App> {
 
         viewHolder.txtName.setText(app.getName());
         viewHolder.txtCategory.setText(app.getCategory());
+        viewHolder.icon.setImageResource(R.drawable.icon);
 
         // Return the completed view to render on screen
-        return convertView;
+        return result;
     }
 
     @Override
