@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private PackageManager pm;
     //private ActivityUtil mActivityUtil;
 
-    ArrayList apps = new ArrayList();
+    ArrayList<App> apps = new ArrayList<App>();
+
+    App app2 = new App();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             apps.add(i, app);
         }
 
-
         ListView listView = (ListView) findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(this, apps);
         listView.setAdapter(adapter);
@@ -83,11 +84,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
-                App app2 = (App) apps.get(position);
+                app2 = apps.get(position);
                 String title = app2.getName();
                 String category = app2.getCategory();
                 myIntent.putExtra("title", title);
                 myIntent.putExtra("category", category);
+                myIntent.putExtra("app", app2);
                 startActivityForResult(myIntent, 0);
             }
         });
