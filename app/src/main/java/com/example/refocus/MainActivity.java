@@ -1,5 +1,6 @@
 package com.example.refocus;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<App> apps = new ArrayList<App>();
 
     App app2 = new App();
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +80,20 @@ public class MainActivity extends AppCompatActivity {
             apps.add(i, app);
         }
 
-        ListView listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.list);
         MyAdapter adapter = new MyAdapter(this, apps);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
                 app2 = apps.get(position);
                 String title = app2.getName();
                 String category = app2.getCategory();
                 myIntent.putExtra("title", title);
                 myIntent.putExtra("category", category);
+                myIntent.putExtra("position", position);
                 myIntent.putExtra("app", app2);
                 startActivityForResult(myIntent, 0);
             }
@@ -118,5 +123,45 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 0) {
+            if (resultCode == Activity.RESULT_OK) {
+                int pos = data.getIntExtra("position2", 0);
+
+                app2 = (App) data.getExtras().getParcelable("result");
+
+                listView = (ListView) findViewById(R.id.list);
+
+                apps.set(pos, app2);
+
+                MyAdapter adapter2 = new MyAdapter(this, apps);
+                listView.setAdapter(adapter2);
+
+                listView.smoothScrollToPosition(pos);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
+                        app2 = apps.get(position);
+                        String title = app2.getName();
+                        String category = app2.getCategory();
+                        myIntent.putExtra("title", title);
+                        myIntent.putExtra("category", category);
+                        myIntent.putExtra("position", position);
+                        myIntent.putExtra("app", app2);
+                        startActivityForResult(myIntent, 0);
+                    }
+                });
+
+                /*String name = app2.getName();
+                String cat = app2.getCategory();
+                TextView displayTextView = (TextView)findViewById(R.id.subtitle);
+                displayTextView.setText(cat);*/
+            }
+        }
+    }
 }

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -21,16 +22,24 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
 
     App app = new App();
 
+    private Button buttonname;
+
+    Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        buttonname = (Button) findViewById(R.id.submit_button);
+
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         app = (App) getIntent().getExtras().getParcelable("app");
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
+
+        final int pos = bundle.getInt("position");
 
         if ((bundle.getString("title")!= null) && (bundle.getString("category")!= null))
         {
@@ -40,7 +49,7 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
             TextView textView = (TextView) findViewById(R.id.app_title);
             textView.setText(title);
 
-            TextView textView2 = (TextView) findViewById(R.id.app_category);
+            TextView textView2 = (TextView) findViewById(R.id.app_category2);
             textView2.setText(cat);
         }
 
@@ -57,6 +66,27 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
+        buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //selectedValue = (String) parent.getItemAtPosition(pos);
+
+                //String selectedValue = "changed";
+
+                app.setCategory(selectedValue);
+
+                //TextView displayTextView = (TextView)findViewById(R.id.app_category);
+                //displayTextView.setText(selectedValue);
+
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",app);
+                returnIntent.putExtra("position2",pos);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            }
+        });
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -65,16 +95,9 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
 
         app.setCategory(selectedValue);
 
-        TextView displayTextView = (TextView)findViewById(R.id.app_category);
+        //TextView displayTextView = (TextView)findViewById(R.id.app_category);
 
-        displayTextView.setText(selectedValue);
-
-        //app.setCategory(selectedValue);
-
-        /*Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",app);
-        setResult(Activity.RESULT_OK,returnIntent);*/
-        //finish();
+        //displayTextView.setText(selectedValue);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
