@@ -17,13 +17,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static java.sql.Types.NULL;
+
 public class SecondActivity extends AppCompatActivity implements OnItemSelectedListener {
 
     String selectedValue = "";
     String hoursSelectedValue;
-    int hours;
     String minsSelectedValue;
-    int mins;
 
     App app = new App();
 
@@ -46,6 +46,7 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
 
         final int pos = bundle.getInt("position");
 
+
         if ((bundle.getString("title")!= null) && (bundle.getString("category")!= null))
         {
             String title = bundle.getString ("title");
@@ -57,18 +58,40 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
             TextView textView2 = (TextView) findViewById(R.id.app_category2);
             textView2.setText(cat);
 
+            //String hours_string = app.getHours();
+            String hours_string = bundle.getString("hours");
+            TextView hoursTextView = (TextView) findViewById(R.id.hoursTextView);
+            hoursTextView.setText(hours_string);
+
+            //String mins_string = app.getMinutes();
+            String mins_string = bundle.getString("minutes");
+            TextView minsTextView = (TextView) findViewById(R.id.minsTextView);
+            minsTextView.setText(mins_string);
+        }
+
+        /*else if (app.getCategory() != "none") {
+            //String title = bundle.getString ("title");
+            //String cat = bundle.getString ("category");
+
+            String title = app.getName();
+            String cat = app.getCategory();
+
+            TextView textView = (TextView) findViewById(R.id.app_title);
+            textView.setText(title);
+
+            TextView textView2 = (TextView) findViewById(R.id.app_category2);
+            textView2.setText(cat);
+
             //int hours2 = app.getHours();
-            int hours2 = bundle.getInt("hours");
-            String hours_string = Integer.toString(hours2);
+            String hours_string = app.getHours();
             TextView hoursTextView = (TextView) findViewById(R.id.hoursTextView);
             hoursTextView.setText(hours_string);
 
             //int mins2 = app.getMinutes();
-            int mins2 = bundle.getInt("minutes");
-            String mins_string = Integer.toString(mins2);
+            String mins_string = app.getMinutes();
             TextView minsTextView = (TextView) findViewById(R.id.minsTextView);
             minsTextView.setText(mins_string);
-        }
+        }*/
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner1);
         Spinner hours_spinner = (Spinner) findViewById(R.id.hours_spinner);
@@ -102,15 +125,15 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
             @Override
             public void onClick(View view) {
 
-                app.setCategory(selectedValue);
-                app.setHours(hours);
-                app.setMinutes(mins);
+                //app.setCategory(selectedValue);
+                //app.setHours(hoursSelectedValue);
+                //app.setMinutes(minsSelectedValue);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("result",app);
                 returnIntent.putExtra("position2",pos);
-                returnIntent.putExtra("hours",hours);
-                returnIntent.putExtra("mins",mins);
+                returnIntent.putExtra("hrs",hoursSelectedValue);
+                returnIntent.putExtra("mins",minsSelectedValue);
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
             }
@@ -128,13 +151,11 @@ public class SecondActivity extends AppCompatActivity implements OnItemSelectedL
                 break;
             case R.id.hours_spinner:
                 hoursSelectedValue = (String) parent.getItemAtPosition(pos);
-                hours = Integer.parseInt(hoursSelectedValue);
-                app.setHours(hours);
+                app.setHours(hoursSelectedValue);
                 break;
             case R.id.minutes_spinner:
                 minsSelectedValue = (String) parent.getItemAtPosition(pos);
-                mins = Integer.parseInt(minsSelectedValue);
-                app.setMinutes(mins);
+                app.setMinutes(minsSelectedValue);
                 break;
 
         }

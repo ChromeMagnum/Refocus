@@ -47,7 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
 
-    int hours3, mins3;
+    int pos;
+
+    String hours_string2, mins_string2;
+
+    int FLAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
             app.setName(app_name);
             app.setCategory(category);
             app.setImage(icon);
-            app.setHours(0);
-            app.setMinutes(0);
+            app.setHours("0");
+            app.setMinutes("0");
             apps.add(i, app);
         }
 
@@ -98,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 app2 = apps.get(position);
                 String title = app2.getName();
                 String category = app2.getCategory();
-                int hours = app2.getHours();
-                int mins = app2.getMinutes();
+                String hours = app2.getHours();
+                String mins = app2.getMinutes();
                 myIntent.putExtra("title", title);
                 myIntent.putExtra("category", category);
                 myIntent.putExtra("position", position);
@@ -140,13 +144,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
-                int pos = data.getIntExtra("position2", 0);
 
-                hours3 = data.getIntExtra("hours", 0);
+                pos = data.getIntExtra("position2", 0);
 
-                mins3 = data.getIntExtra("mins", 0);
+                hours_string2 = data.getExtras().getString("hrs");
+
+                mins_string2 = data.getExtras().getString("mins");
 
                 app2 = (App) data.getExtras().getParcelable("result");
+
+                app2.setHours(hours_string2);
+                app2.setMinutes(mins_string2);
 
                 listView = (ListView) findViewById(R.id.list);
 
@@ -164,13 +172,13 @@ public class MainActivity extends AppCompatActivity {
                         app2 = apps.get(position);
                         String title = app2.getName();
                         String category = app2.getCategory();
-                        int hours = app2.getHours();
-                        int mins = app2.getMinutes();
+                        String hours = app2.getHours();
+                        String mins = app2.getMinutes();
                         myIntent.putExtra("title", title);
                         myIntent.putExtra("category", category);
                         myIntent.putExtra("position", position);
-                        myIntent.putExtra("hours", hours3);
-                        myIntent.putExtra("minutes", mins3);
+                        myIntent.putExtra("hours", hours);
+                        myIntent.putExtra("minutes", mins);
                         myIntent.putExtra("app", app2);
                         startActivityForResult(myIntent, 0);
                     }

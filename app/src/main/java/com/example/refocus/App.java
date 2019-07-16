@@ -10,8 +10,8 @@ public class App implements Parcelable {
     String name;
     String category;
     Drawable icon;
-    int hours;
-    int minutes;
+    String hours;
+    String minutes;
 
     public App() {
     }
@@ -48,19 +48,17 @@ public class App implements Parcelable {
         return icon;
     }
 
-    public int getHours() {
-        return hours;
-    }
+    public String getHours() { return hours; }
 
-    public void setHours(int hrs) {
+    public void setHours(String hrs) {
         this.hours = hrs;
     }
 
-    public int getMinutes() {
+    public String getMinutes() {
         return minutes;
     }
 
-    public void setMinutes(int mins) {
+    public void setMinutes(String mins) {
         this.minutes = mins;
     }
 
