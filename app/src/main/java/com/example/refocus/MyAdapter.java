@@ -32,6 +32,8 @@ public class MyAdapter extends ArrayAdapter<App> {
         TextView txtName;
         TextView txtCategory;
         public ImageView icon;
+        int Hours;
+        int Mins;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -50,6 +52,9 @@ public class MyAdapter extends ArrayAdapter<App> {
             convertView = inflater.inflate(R.layout.list_item, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.title);
             viewHolder.txtCategory = (TextView) convertView.findViewById(R.id.subtitle);
+            String txtHours = Integer.toString(viewHolder.Hours);
+            //viewHolder.txtHours = (TextView) convertView.findViewById(R.id.hours);
+            //viewHolder.txtMins = (TextView) convertView.findViewById(R.id.mins);
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
 
             result=convertView;
@@ -63,6 +68,8 @@ public class MyAdapter extends ArrayAdapter<App> {
 
         viewHolder.txtName.setText(app.getName());
         viewHolder.txtCategory.setText(app.getCategory());
+        //viewHolder.Hours.setInteger(app.getHours());
+        //viewHolder.txtMins.setText(app.getMinutes());
         viewHolder.icon.setImageResource(R.drawable.icon);
 
         // Return the completed view to render on screen

@@ -2,10 +2,12 @@ package com.example.refocus;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
 
+    int hours3, mins3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
             app.setName(app_name);
             app.setCategory(category);
             app.setImage(icon);
+            app.setHours(0);
+            app.setMinutes(0);
             apps.add(i, app);
         }
 
@@ -88,12 +94,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
+                //myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 app2 = apps.get(position);
                 String title = app2.getName();
                 String category = app2.getCategory();
+                int hours = app2.getHours();
+                int mins = app2.getMinutes();
                 myIntent.putExtra("title", title);
                 myIntent.putExtra("category", category);
                 myIntent.putExtra("position", position);
+                myIntent.putExtra("hours", hours);
+                myIntent.putExtra("minutes", mins);
                 myIntent.putExtra("app", app2);
                 startActivityForResult(myIntent, 0);
             }
@@ -131,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 int pos = data.getIntExtra("position2", 0);
 
+                hours3 = data.getIntExtra("hours", 0);
+
+                mins3 = data.getIntExtra("mins", 0);
+
                 app2 = (App) data.getExtras().getParcelable("result");
 
                 listView = (ListView) findViewById(R.id.list);
@@ -149,9 +164,13 @@ public class MainActivity extends AppCompatActivity {
                         app2 = apps.get(position);
                         String title = app2.getName();
                         String category = app2.getCategory();
+                        int hours = app2.getHours();
+                        int mins = app2.getMinutes();
                         myIntent.putExtra("title", title);
                         myIntent.putExtra("category", category);
                         myIntent.putExtra("position", position);
+                        myIntent.putExtra("hours", hours3);
+                        myIntent.putExtra("minutes", mins3);
                         myIntent.putExtra("app", app2);
                         startActivityForResult(myIntent, 0);
                     }

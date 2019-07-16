@@ -52,16 +52,16 @@ public class App implements Parcelable {
         return hours;
     }
 
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setHours(int hrs) {
+        this.hours = hrs;
     }
 
     public int getMinutes() {
-        return hours;
+        return minutes;
     }
 
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
+    public void setMinutes(int mins) {
+        this.minutes = mins;
     }
 
     @Override
