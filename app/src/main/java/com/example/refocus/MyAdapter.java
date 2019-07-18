@@ -32,8 +32,8 @@ public class MyAdapter extends ArrayAdapter<App> {
         TextView txtName;
         TextView txtCategory;
         public ImageView icon;
-        int Hours;
-        int Mins;
+        TextView Hours;
+        TextView Mins;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -52,7 +52,7 @@ public class MyAdapter extends ArrayAdapter<App> {
             convertView = inflater.inflate(R.layout.list_item, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.title);
             viewHolder.txtCategory = (TextView) convertView.findViewById(R.id.subtitle);
-            String txtHours = Integer.toString(viewHolder.Hours);
+            //String txtHours = Integer.toString(viewHolder.Hours);
             //viewHolder.txtHours = (TextView) convertView.findViewById(R.id.hours);
             //viewHolder.txtMins = (TextView) convertView.findViewById(R.id.mins);
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
@@ -70,7 +70,43 @@ public class MyAdapter extends ArrayAdapter<App> {
         viewHolder.txtCategory.setText(app.getCategory());
         //viewHolder.Hours.setInteger(app.getHours());
         //viewHolder.txtMins.setText(app.getMinutes());
-        viewHolder.icon.setImageResource(R.drawable.icon);
+
+        // set each app's icon
+        if (position == 0) {
+            viewHolder.icon.setImageResource(R.drawable.refocus);
+        }
+
+        else if (position == 1) {
+            viewHolder.icon.setImageResource(R.drawable.chrome);
+        }
+
+        else if (position == 2) {
+            viewHolder.icon.setImageResource(R.drawable.phone);
+        }
+
+        else if (position == 3) {
+            viewHolder.icon.setImageResource(R.drawable.smart_fitness);
+        }
+
+        else if (position == 4) {
+            viewHolder.icon.setImageResource(R.drawable.camera);
+        }
+
+        else if (position == 5) {
+            viewHolder.icon.setImageResource(R.drawable.messages);
+        }
+
+        else if (position == 6) {
+            viewHolder.icon.setImageResource(R.drawable.google);
+        }
+
+        else if (position == 7) {
+            viewHolder.icon.setImageResource(R.drawable.youtube);
+        }
+
+        else {
+            viewHolder.icon.setImageResource(R.drawable.icon);
+        }
 
         // Return the completed view to render on screen
         return result;

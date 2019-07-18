@@ -8,6 +8,7 @@ import android.os.Parcelable;
 public class App implements Parcelable {
     ApplicationInfo info;
     String name;
+    String package_name;
     String category;
     Drawable icon;
     String hours;
@@ -30,6 +31,14 @@ public class App implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPackageName() {
+        return package_name;
+    }
+
+    public void setPackageName(String package_name) {
+        this.package_name = package_name;
     }
 
     public String getCategory() {

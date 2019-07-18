@@ -32,14 +32,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static String GOOGLE_URL = "https://play.google.com/store/apps/details?id=";
-    public static final String ERROR = "error";
-
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private final String TAG = MainActivity.class.getSimpleName();
     private PackageManager pm;
-    //private ActivityUtil mActivityUtil;
 
     ArrayList<App> apps = new ArrayList<App>();
 
@@ -51,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     String hours_string2, mins_string2;
 
-    int FLAG;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,34 +54,40 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         PackageManager pm = getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         Iterator<ApplicationInfo> iterator = packages.iterator();
         int i = 0;
         while (iterator.hasNext()) {
             ApplicationInfo packageInfo = iterator.next();
-            String app_name = (String) pm.getApplicationLabel(packageInfo);
-            String query_url = GOOGLE_URL + packageInfo.packageName;
-            Drawable icon = pm.getApplicationIcon(packageInfo);
-            Log.i(TAG, query_url);
-            String category = "none";
-            Log.e("CATEGORY", category);
-            App app = new App();
-            app.setName(app_name);
-            app.setCategory(category);
-            app.setImage(icon);
-            app.setHours("0");
-            app.setMinutes("0");
-            apps.add(i, app);
+
+            String test_name = (String) pm.getApplicationLabel(packageInfo);;
+
+            ArrayList<String> app_array = new ArrayList<String>();
+            app_array.add("Refocus");
+            app_array.add("Chrome");
+            app_array.add("Phone");
+            app_array.add("Smart Fitness");
+            app_array.add("Camera");
+            app_array.add("Messages");
+            app_array.add("Google");
+            app_array.add("YouTube");
+
+            if (app_array.contains(test_name)) {
+                String app_name = (String) pm.getApplicationLabel(packageInfo);
+                String package_name = (String) packageInfo.packageName;
+                Drawable icon = pm.getApplicationIcon(packageInfo);
+                String category = "none";
+                App app = new App();
+                app.setName(app_name);
+                app.setPackageName(package_name);
+                app.setCategory(category);
+                app.setImage(icon);
+                app.setHours("0");
+                app.setMinutes("0");
+                apps.add(i, app);
+            }
+
         }
 
         listView = (ListView) findViewById(R.id.list);
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
                 //myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 app2 = apps.get(position);
@@ -104,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 String category = app2.getCategory();
                 String hours = app2.getHours();
                 String mins = app2.getMinutes();
+                String pname = app2.getPackageName();
                 myIntent.putExtra("title", title);
+                myIntent.putExtra("pname", pname);
                 myIntent.putExtra("category", category);
                 myIntent.putExtra("position", position);
                 myIntent.putExtra("hours", hours);
@@ -132,7 +135,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+
+            Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -183,11 +188,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(myIntent, 0);
                     }
                 });
-
-                /*String name = app2.getName();
-                String cat = app2.getCategory();
-                TextView displayTextView = (TextView)findViewById(R.id.subtitle);
-                displayTextView.setText(cat);*/
             }
         }
     }

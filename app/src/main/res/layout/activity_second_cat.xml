@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".SecondCatActivity">
 
 
     <TextView
-        android:id="@+id/app_title"
+        android:id="@+id/cat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -15,42 +15,11 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/app_category2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="60dp"
-        android:text="TextView"
-        android:textSize="18sp" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/app_category2"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="2dp"
-        android:ems="10"
-        android:text="Category:"
-        android:textSize="18sp" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="105dp"
-        android:textSize="18sp"
-        android:entries="@array/categories_arrays" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="162dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:text="Set your time limits:"
         android:textSize="18sp" />
@@ -58,9 +27,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/spinner1"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="207dp"
+        android:layout_marginTop="93dp"
         android:ems="10"
         android:text="Hours:"
         android:textSize="18sp" />
@@ -71,16 +39,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="98dp"
         android:text="HoursTextView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/spinner1"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="248dp"
+        android:layout_marginTop="148dp"
         android:layout_marginEnd="0dp"
         android:ems="10"
         android:text="Minutes:"
@@ -92,8 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="251dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="151dp"
         android:text="MinsTextView" />
 
     <Spinner
@@ -102,8 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="212dp"
-        android:layout_marginTop="207dp"
+        android:layout_marginStart="211dp"
+        android:layout_marginTop="95dp"
         android:entries="@array/hours_arrays"
         android:textSize="18sp" />
 
@@ -113,19 +80,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="214dp"
-        android:layout_marginTop="249dp"
+        android:layout_marginStart="237dp"
+        android:layout_marginTop="150dp"
         android:entries="@array/minutes_arrays"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/submit_button"
+        android:id="@+id/submit_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="311dp"
-        android:layout_marginEnd="139dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="138dp"
         android:text="Save and Return" />
 
     <TextView
@@ -135,7 +102,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="170dp"
-        android:layout_marginBottom="163dp"
+        android:layout_marginBottom="319dp"
         android:text="TextView" />
 
 </RelativeLayout>
