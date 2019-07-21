@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             app_array.add("Refocus");
             app_array.add("Chrome");
             app_array.add("Phone");
-            app_array.add("Smart Fitness");
+            //app_array.add("Smart Fitness");
             app_array.add("Camera");
             app_array.add("Messages");
             app_array.add("Google");

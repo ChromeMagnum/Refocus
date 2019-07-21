@@ -85,22 +85,18 @@ public class MyAdapter extends ArrayAdapter<App> {
         }
 
         else if (position == 3) {
-            viewHolder.icon.setImageResource(R.drawable.smart_fitness);
-        }
-
-        else if (position == 4) {
             viewHolder.icon.setImageResource(R.drawable.camera);
         }
 
-        else if (position == 5) {
+        else if (position == 4) {
             viewHolder.icon.setImageResource(R.drawable.messages);
         }
 
-        else if (position == 6) {
+        else if (position == 5) {
             viewHolder.icon.setImageResource(R.drawable.google);
         }
 
-        else if (position == 7) {
+        else if (position == 6) {
             viewHolder.icon.setImageResource(R.drawable.youtube);
         }
 
